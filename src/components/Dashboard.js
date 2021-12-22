@@ -1,13 +1,13 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 
 import Timer from './Timer'
-import Counter from './Counter'
 
 /*
     Displays the timer and the player
     Manages the access token and passes it to the timer and player components
 */
+
 
 export default function Dashboard() {
 
@@ -74,7 +74,7 @@ export default function Dashboard() {
 
             {/* Timer component */}
             <Timer />
-            
+
         </div>
     )
 }
