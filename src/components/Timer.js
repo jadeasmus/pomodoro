@@ -5,11 +5,12 @@ export default function Timer() {
 
     const [isActive, setIsActive] = useState(false);
     const [isPicked, setIsPicked] = useState(false);
-    // const [sessionCount, setSessionCount] = useState(0);
+    const [sessionCount, setSessionCount] = useState(0);
 
     const [second, setSecond] = useState('00');
     const [minute, setMinute] = useState('00');
     const [hour, setHour] = useState('00');
+
     const [counter, setCounter] = useState(0)
     const [flow, setFlow] = useState(0)
     const [rest, setRest] = useState(0)
@@ -18,10 +19,7 @@ export default function Timer() {
 
     useEffect(() => {
         let flowInterval;
-        let restInterval;
 
-        // console.log(counter)
-    
         if (isPicked) {
             const hourCounter = Math.floor(counter / 3600);
             const minuteCounter = Math.floor(counter / 60) % 60;
@@ -42,11 +40,15 @@ export default function Timer() {
                     if (counter >= 1) {
                         setCounter(counter => counter - 1);
                     } else {
-                        // console.log("in else")
                         setBub(bub+1) // in rest
-                        setCounter(bub%2===0 ? rest : flow)
+                        // setCounter(bub%2===0 ? rest : flow)
+                        if (bub%2===0) {
+                            setCounter(rest)
+                        } else {
+                            setCounter(flow)
+                            setSessionCount(sessionCount+1)
+                        }
                     }
-                    // console.log(bub)
                     
                 }  
             }, 1000) // 1000 milliseconds per second
@@ -68,16 +70,22 @@ export default function Timer() {
 
     const handleClick = (event) => {
         setIsPicked(true);
+        // 25 minutes work, 5 minutes rest
         if(event.target.textContent === "Classic"){
-            setCounter(1500)
-            setFlow(1500)
-            setRest(300)
+            // setCounter(1500)
+            // setFlow(1500)
+            // setRest(300)
+            setCounter(15)
+            setFlow(15)
+            setRest(3)
         }
+        // 50 minutes work, 10 minutes rest
         if(event.target.textContent === "Longer") {
             setCounter(3000)
             setFlow(3000)
             setRest(600)
         }
+        // 75 minutes work, 15 minutes rest
         if(event.target.textContent === "Longest"){
             setCounter(4500)
             setFlow(4500)
@@ -101,17 +109,6 @@ export default function Timer() {
             {/* Pomodoro session options */}
             {!isPicked ? 
             <div className="text-center">
-                {/* 
-                <button onClick={event => handleClick(event)} className="text-red-500 px-3 m-3 rounded-md shadow-md bg-white">3600</button>
-                <button onClick={event => handleClick(event)} className="text-red-500 px-3 m-3 rounded-md shadow-md bg-white">600</button>
-                <button onClick={event => handleClick(event)} className="text-red-500 px-3 m-3 rounded-md shadow-md bg-white">300</button>
-                <button onClick={event => handleClick(event)} className="text-red-500 px-3 m-3 rounded-md shadow-md bg-white">120</button>
-    
-                <form className="" onSubmit={(e) => e.preventDefault()}>
-                <input className="border-5 border-green-glow rounded-md" type="text" placeholder="Custom" onChange={(e) => setE(parseInt(e.target.value))}></input>
-                    <input type="submit" value="Submit" onClick={ () => setCounter(E) }></input>
-                </form> 
-                */}
 
                 <button onClick={event => handleClick(event)} className="text-blue-800 px-3 m-3 rounded-md shadow-md bg-white">Classic</button>
                 <button onClick={event => handleClick(event)} className="text-blue-800 px-3 m-3 rounded-md shadow-md bg-white">Longer</button>
@@ -119,15 +116,17 @@ export default function Timer() {
         
             </div>
             : 
-            // <div>
-            //     <h1 className="text-md"> Flow session {sessionCount} </h1>
-            // </div>
-
-            
+            <>
+            <div>
+                <h1 className="text-md"> Sessions completed: {sessionCount} </h1>
+            </div>
+                
             <div className="flex justify-center space-x-5">
                 <button className="text-blue-800 font-semibold text-lg h-24 w-24 mt-20 shadow-sm bg-white rounded-full" onClick={() => setIsActive(!isActive)}>{isActive ? "Pause" : "Start"}</button>
                 <button className="text-blue-800 text-lg font-semibold shadow-sm h-24 w-24 mt-20 bg-white rounded-full" onClick={() => stopTimer()}> End Session </button>
             </div>
+                    
+            </>
     
             
             }
