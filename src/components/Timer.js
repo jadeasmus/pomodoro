@@ -16,10 +16,12 @@ export default function Timer() {
 
 
     useEffect(() => {
-        let intervalId;
+        let flowInterval;
+        let restInterval;
+
+        console.log(counter)
     
         if (isPicked) {
-            setCounter(flow)
             const hourCounter = Math.floor(counter / 3600);
             const minuteCounter = Math.floor(counter / 60) % 60;
             const secondCounter = (counter % 60);
@@ -32,19 +34,45 @@ export default function Timer() {
             setMinute(computedMinute);
             setHour(computedHour);
         
-            intervalId = setInterval(() => {
+            flowInterval = setInterval(() => {
+                // console.log(inFlow)
                 if (isActive) {
+                    console.log("flow interval")
                     setCounter(counter => counter - 1);
-                    if (counter === 0) {
-                        setCounter(flow ? rest : flow)
-                    }
-                }
-                
+                    // if (counter === 0) {
+                    //     console.log("flow times up")
+                    //     setCounter(rest)
+                    //     if (counter === 0) {
+                    //         console.log("rest times up")
+                    //         setCounter(flow)
+                    //     }
+                    //     // setCounter(flow === flow ? rest : flow)
+                    // }
+                }  
             }, 1000) // 1000 milliseconds per second
+
+            restInterval = setInterval(() => {
+                if (isActive) {
+                    console.log("rest interval")
+                    setCounter(counter => counter - 1)
+                }
+            }, 1000)
           
         }
-        return () => clearInterval(intervalId);
+        return () => clearInterval(flowInterval), clearInterval(restInterval);
     }, [isActive, isPicked, counter]);
+
+    // const checkFlow = (inFlow) => {
+    //     if (inFlow === inFlow) {
+    //         inFlow = !inFlow
+    //         setCounter(rest)
+    //         console.log("rest")
+    //     } else {
+    //         inFlow = inFlow
+    //         setCounter(flow)
+    //         console.log("flow")
+    //     }
+    // }
 
     const stopTimer = () => {
         setIsActive(false);
@@ -58,7 +86,7 @@ export default function Timer() {
     const handleClick = (event) => {
         setIsPicked(true);
         if(event.target.textContent === "Classic"){
-            setFlow(30)
+            setFlow(15)
             setRest(5)
         }
         if(event.target.textContent === "Longer") {

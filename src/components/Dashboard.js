@@ -2,6 +2,8 @@ import React from 'react'
 import { useEffect } from 'react'
 
 import Timer from './Timer'
+import Counter from './Counter'
+import Pomodoro from './Pomodoro'
 
 /*
     Displays the timer and the player
@@ -62,6 +64,8 @@ export default function Dashboard() {
         }
     })
 
+    
+
 
     return (
         <div className="bg-blue-300 h-screen">
@@ -73,7 +77,9 @@ export default function Dashboard() {
             </div>
 
             {/* Timer component */}
-            <Timer />
+            {/* <Timer /> */}
+
+            <Pomodoro />
 
         </div>
     )
