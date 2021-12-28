@@ -77,9 +77,10 @@ export default function Dashboard() {
             </div>
 
             {/* Timer component */}
-            {/* <Timer /> */}
+            <Timer />
 
-            <Pomodoro />
+            {/* <Pomodoro /> */}
+            {/* < Counter /> */}
 
         </div>
     )

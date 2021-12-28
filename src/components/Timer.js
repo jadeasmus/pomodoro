@@ -5,21 +5,20 @@ export default function Timer() {
 
     const [isActive, setIsActive] = useState(false);
     const [isPicked, setIsPicked] = useState(false);
-    const [sessionCount, setSessionCount] = useState(0);
+    // const [sessionCount, setSessionCount] = useState(0);
 
     const [second, setSecond] = useState('00');
     const [minute, setMinute] = useState('00');
     const [hour, setHour] = useState('00');
     const [counter, setCounter] = useState(0)
-    const [flow, setFlow] = useState(0);
-    const [rest, setRest] = useState(0);
+    const [bub, setBub] = useState(2)
 
 
     useEffect(() => {
         let flowInterval;
         let restInterval;
 
-        console.log(counter)
+        // console.log(counter)
     
         if (isPicked) {
             const hourCounter = Math.floor(counter / 3600);
@@ -34,45 +33,27 @@ export default function Timer() {
             setMinute(computedMinute);
             setHour(computedHour);
         
+            
             flowInterval = setInterval(() => {
                 // console.log(inFlow)
+                // when bub is even, its time for rest, when it is odd, it's time for work
                 if (isActive) {
-                    console.log("flow interval")
-                    setCounter(counter => counter - 1);
-                    // if (counter === 0) {
-                    //     console.log("flow times up")
-                    //     setCounter(rest)
-                    //     if (counter === 0) {
-                    //         console.log("rest times up")
-                    //         setCounter(flow)
-                    //     }
-                    //     // setCounter(flow === flow ? rest : flow)
-                    // }
+                    if (counter >= 0) {
+                        setCounter(counter => counter - 1);
+                    } else {
+                        console.log("in else")
+                        console.log(setBub(bub+1), bub) // in rest
+                        setCounter(bub%2===0 ? 5 : 15)
+                    }
+                    // console.log(bub)
+                    
                 }  
             }, 1000) // 1000 milliseconds per second
-
-            restInterval = setInterval(() => {
-                if (isActive) {
-                    console.log("rest interval")
-                    setCounter(counter => counter - 1)
-                }
-            }, 1000)
           
         }
-        return () => clearInterval(flowInterval), clearInterval(restInterval);
+        return () => clearInterval(flowInterval);
     }, [isActive, isPicked, counter]);
 
-    // const checkFlow = (inFlow) => {
-    //     if (inFlow === inFlow) {
-    //         inFlow = !inFlow
-    //         setCounter(rest)
-    //         console.log("rest")
-    //     } else {
-    //         inFlow = inFlow
-    //         setCounter(flow)
-    //         console.log("flow")
-    //     }
-    // }
 
     const stopTimer = () => {
         setIsActive(false);
@@ -86,16 +67,16 @@ export default function Timer() {
     const handleClick = (event) => {
         setIsPicked(true);
         if(event.target.textContent === "Classic"){
-            setFlow(15)
-            setRest(5)
+            setCounter(15)
+            // setRest(5)
         }
         if(event.target.textContent === "Longer") {
             setCounter(3000)
-            setRest(10)
+            // setRest(10)
         }
         if(event.target.textContent === "Longest"){
             setCounter(4500)
-            setRest(15)
+            // setRest(15)
         }
         // timerLoop(counter)
     }

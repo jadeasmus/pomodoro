@@ -57,15 +57,15 @@ export default function Pomodoro() {
     const handleClick = (e) => {
         setIsPicked(true)
         if(e.target.textContent === "Classic"){
-            setCounter(15)
-            setRest(5)
+            setCounter(4)
+            setRest(2)
         }
     }
 
     // end the session
     const stopTimer = () => {
         setIsActive(false);
-        setCounter(0);
+        // setCounter(0);
         setSecond('00');
         setMinute('00')
         setHour('00');
@@ -73,7 +73,7 @@ export default function Pomodoro() {
 
     return (
         <div className="text-center">
-            <div className="">
+            <div className="text-white text-6xl pt-32 pb-8">
                 {counter}:{timerSeconds}
             </div>
 
