@@ -38,7 +38,7 @@ export default function Timer() {
                 // console.log(inFlow)
                 // when bub is even, its time for rest, when it is odd, it's time for work
                 if (isActive) {
-                    if (counter >= 0) {
+                    if (counter >= 1) {
                         setCounter(counter => counter - 1);
                     } else {
                         console.log("in else")
