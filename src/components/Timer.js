@@ -35,14 +35,13 @@ export default function Timer() {
         
             
             flowInterval = setInterval(() => {
-                // console.log(inFlow)
                 // when bub is even, its time for rest, when it is odd, it's time for work
                 if (isActive) {
                     if (counter >= 1) {
                         setCounter(counter => counter - 1);
                     } else {
-                        console.log("in else")
-                        console.log(setBub(bub+1), bub) // in rest
+                        // console.log("in else")
+                        setBub(bub+1) // in rest
                         setCounter(bub%2===0 ? 5 : 15)
                     }
                     // console.log(bub)
@@ -57,6 +56,7 @@ export default function Timer() {
 
     const stopTimer = () => {
         setIsActive(false);
+        setIsPicked(false)
         setCounter(0);
         setSecond('00');
         setMinute('00')
@@ -95,7 +95,7 @@ export default function Timer() {
             </div>
 
             {/* Pomodoro session options */}
-            {!counter ? 
+            {!isPicked ? 
             <div className="text-center">
                 {/* 
                 <button onClick={event => handleClick(event)} className="text-red-500 px-3 m-3 rounded-md shadow-md bg-white">3600</button>
