@@ -11,6 +11,8 @@ export default function Timer() {
     const [minute, setMinute] = useState('00');
     const [hour, setHour] = useState('00');
     const [counter, setCounter] = useState(0)
+    const [flow, setFlow] = useState(0)
+    const [rest, setRest] = useState(0)
     const [bub, setBub] = useState(2)
 
 
@@ -42,7 +44,7 @@ export default function Timer() {
                     } else {
                         // console.log("in else")
                         setBub(bub+1) // in rest
-                        setCounter(bub%2===0 ? 5 : 15)
+                        setCounter(bub%2===0 ? rest : flow)
                     }
                     // console.log(bub)
                     
@@ -67,18 +69,20 @@ export default function Timer() {
     const handleClick = (event) => {
         setIsPicked(true);
         if(event.target.textContent === "Classic"){
-            setCounter(15)
-            // setRest(5)
+            setCounter(1500)
+            setFlow(1500)
+            setRest(300)
         }
         if(event.target.textContent === "Longer") {
             setCounter(3000)
-            // setRest(10)
+            setFlow(3000)
+            setRest(600)
         }
         if(event.target.textContent === "Longest"){
             setCounter(4500)
-            // setRest(15)
+            setFlow(4500)
+            setRest(900)
         }
-        // timerLoop(counter)
     }
 
 

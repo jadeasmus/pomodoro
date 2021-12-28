@@ -2,8 +2,6 @@ import React from 'react'
 import { useEffect } from 'react'
 
 import Timer from './Timer'
-import Counter from './Counter'
-import Pomodoro from './Pomodoro'
 
 /*
     Displays the timer and the player
@@ -78,9 +76,6 @@ export default function Dashboard() {
 
             {/* Timer component */}
             <Timer />
-
-            {/* <Pomodoro /> */}
-            {/* < Counter /> */}
 
         </div>
     )
